@@ -2,30 +2,18 @@
 /* eslint-disable no-unused-vars */
 import {defineStore} from 'pinia'
  import { ref, computed } from 'vue'
+ import axios from 'axios'
 
  export const usePlayer = defineStore('player', () => {
     const isLoading = ref(false);
+    const trailerId = ref();
 
-    const getMovies = async () => {
+    const getTrailer = async (id) => {
         try {
             isLoading.value = true
-            // Carrega a API do YouTube
-            const tag = document.createElement('script');
-            tag.src = 'https://www.youtube.com/iframe_api';
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-             // Inicializa o player quando a API estiver pronta
-            window.onYouTubeIframeAPIReady = () => {
-                this.player = new window.YT.Player(this.$refs.player, {
-                    height: '360',
-                    width: '640',
-                    videoId: 'MaKEBn3ve4E', // Substitua 'VIDEO_ID_HERE' pelo ID do vídeo do YouTube que você deseja reproduzir
-                    events: {
-                        'onReady': this.onPlayerReady,
-                    },
-                });
-            };
+            const apiKey = '4fed3f5d3a4f4c308c5a51f02e7113f6'
+            const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=pt-BR`);
+            trailerId.value = response.data.results[0].key;
         } catch (error) {
             console.error('Erro ao buscar filmes:', error);
         } finally {
@@ -34,14 +22,12 @@ import {defineStore} from 'pinia'
     }
 
 
-    const moviesLength = computed(() => movies.value.lenght)
-    const page = computed(() => pageIndex.value)
-    const pages = computed(() => totalPages.value)
-    const results = computed(() => totalResults.value)
-    const moviesList = computed(() => movies.value)
+    const youtubeId = computed(() => trailerId.value)
+
 
     return {
-
+        getTrailer,
+        youtubeId
     }
 
  })
