@@ -25,10 +25,16 @@ const router = createRouter({
         component: () => import('../pages/MyList.vue')
       },
       {
-        path: '/details',
+        path: '/details/:id',
         name: 'details',
-        component: () => import('../pages/Details.vue')
-      }
+        props: true,
+        component: () => import('../pages/Details.vue'),
+      },
+      {
+        path: '/player',
+        name: 'player',
+        component: () => import('../pages/Player.vue')
+      },
   ]
 })
 

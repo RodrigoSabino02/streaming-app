@@ -6,8 +6,6 @@ import { useMovies } from '../store/movies.js'
 import { useSeries } from '../store/series.js'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
-import { RouterLink } from "vue-router";
-
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
@@ -16,6 +14,15 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import { FreeMode, Pagination } from 'swiper/modules';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const redirect = (id) => {
+  router.push({ name: 'details', params: { id: id } });
+  console.log(id)
+}
+
 
 const storeMovies = useMovies()
 const storeSeries = useSeries()
@@ -44,10 +51,10 @@ onMounted(async () => {
               clickable: true,
             }" :modules="modules" class="mySwiper">
               <swiper-slide v-for="movie in moviesList" :key="movie.id">
-                <RouterLink to="/details">
+                <pre>{{ movie.id }}</pre>
+                <button @click="redirect(movie.id)" class="">
                   <img class="rounded-xl" :src="'https://image.tmdb.org/t/p/w200/' + movie.poster_path" />
-                </RouterLink>
-
+                </button>
               </swiper-slide>
             </swiper>
           </div>
