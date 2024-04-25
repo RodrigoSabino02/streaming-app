@@ -49,10 +49,10 @@ onMounted(async () => {
         <div class="bg-gray-900 py-12">
           <div class="container mx-auto px-4">
             <h2 class="text-3xl font-semibold text-white mb-6">Series</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               <button @click="redirectSerieDetails(serie.id)" class="mx-8 my-5" v-for="serie in seriesList"
                 :key="serie.id">
-                <img class="rounded-xl h-72" :src="'https://image.tmdb.org/t/p/w500/' + serie.poster_path" />
+                <img class="rounded-xl w-full sm:h-72" :src="'https://image.tmdb.org/t/p/w500/' + serie.poster_path" />
               </button>
             </div>
           </div>
@@ -60,13 +60,13 @@ onMounted(async () => {
             <div>
               mostrando {{ seriesList.length }} de {{ results }} items
             </div>
-            <div className='flex gap-2 items-center'>
+            <div class="flex gap-2 items-center">
               <span>pagina {{ page }} de {{ pages }}</span>
               <button class="border border-white/10 rounded-md p-1.5 bg-black/20" @click="goToPreviousPage">
-                <ChevronLeft className='size-4' />
+                <ChevronLeft class="size-4" />
               </button>
               <button class="border border-white/10 rounded-md p-1.5 bg-black/20" @click="goToNextPage">
-                <ChevronRight className='size-4' />
+                <ChevronRight class="size-4" />
               </button>
             </div>
           </div>
