@@ -55,19 +55,19 @@ onMounted(async () => {
                 <img class="rounded-xl w-full sm:h-72" :src="'https://image.tmdb.org/t/p/w500/' + serie.poster_path" />
               </button>
             </div>
-          </div>
-          <div class="flex items-center justify-between mx-10 text-sm text-zinc-300">
-            <div>
-              mostrando {{ seriesList.length }} de {{ results }} items
-            </div>
-            <div class="flex gap-2 items-center">
-              <span>pagina {{ page }} de {{ pages }}</span>
-              <button class="border border-white/10 rounded-md p-1.5 bg-black/20" @click="goToPreviousPage">
-                <ChevronLeft class="size-4" />
-              </button>
-              <button class="border border-white/10 rounded-md p-1.5 bg-black/20" @click="goToNextPage">
-                <ChevronRight class="size-4" />
-              </button>
+            <div class="flex items-center justify-between mx-10 text-sm text-zinc-300">
+              <div class="hidden md:block">
+                mostrando {{ seriesList.length }} de {{ results }} items
+              </div>
+              <div class="flex justify-center gap-2 items-center md:justify-end">
+                <span class="hidden md:inline">pagina {{ page }} de {{ pages }}</span>
+                <button class="border border-white/10 rounded-md p-1.5 bg-black/20" @click="goToPreviousPage">
+                  <ChevronLeft class="size-4" />
+                </button>
+                <button class="border border-white/10 rounded-md p-1.5 bg-black/20" @click="goToNextPage">
+                  <ChevronRight class="size-4" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
