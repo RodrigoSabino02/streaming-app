@@ -1,14 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink } from "vue-router";
 
 </script>
 
 <template>
     <div class="max-w-full h-16 px-4 flex items-center justify-start bg-gray-600">
         <RouterLink to="/" class="text-slate-50">
-            <img class="w-10 mr-6" src="https://i.pinimg.com/736x/e9/88/40/e9884007598e2e329d53bb448ede4084.jpg"
-                alt="" />
+            <img class="w-10 mr-6" src="../assets/icons/icon.png" alt="" />
         </RouterLink>
 
         <div class='flex items-center gap-5'>
