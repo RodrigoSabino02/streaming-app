@@ -8,8 +8,6 @@ import {defineStore} from 'pinia'
     const isLoadingMyList = ref(false);
     const myListMoviesId = ref([]);
     const myListMovies = ref([])
-    const list = ref()
-
 
     async function fetchMyList() {
         isLoadingMyList.value = true
@@ -48,6 +46,4 @@ import {defineStore} from 'pinia'
         getMyListMovies,
         fetchMyList
     }
-
-
  })

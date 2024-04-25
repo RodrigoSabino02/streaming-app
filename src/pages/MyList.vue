@@ -1,6 +1,6 @@
 eslint-disable vue/multi-word-component-names
 
-<script setup>
+<!-- <script setup>
 import { useMyList } from '../store/myList.js'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
@@ -32,14 +32,13 @@ onMounted(async () => {
                     <div class="container mx-auto px-4">
                         <h2 class="text-3xl font-semibold text-white mb-6">Meus Favoritos</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                            <button @click="redirectMovieDetails(movie.id)" class="mx-8 my-5"
-                                v-for="myList in getMyListMovies" :key="myList.id">
+                            <button class="mx-8 my-5" v-for="myList in getMyListMovies" :key="myList">
                                 <img class="rounded-xl w-full sm:h-72"
                                     :src="'https://image.tmdb.org/t/p/w500/' + myList.poster_path" />
                             </button>
                         </div>
                     </div>
-                    <!-- <div class="flex items-center justify-between mx-10 text-sm text-zinc-300">
+                    <div class="flex items-center justify-between mx-10 text-sm text-zinc-300">
                         <div>
                             mostrando {{ getMyListMovies.length }} de {{ results }} items
                         </div>
@@ -53,9 +52,9 @@ onMounted(async () => {
                                 <ChevronRight class="size-4" />
                             </button>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</template>
+</template> -->

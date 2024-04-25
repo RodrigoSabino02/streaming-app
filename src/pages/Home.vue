@@ -54,15 +54,23 @@ onMounted(async () => {
         <div class="bg-gray-900 py-8">
           <div class="container mx-auto px-4">
             <h2 class="text-3xl font-semibold text-white mb-6">Meus Favoritos</h2>
-            <swiper :slidesPerView="getMyListMovies.length < 4 ? getMyListMovies.length : 4" :spaceBetween="4"
-              :freeMode="true" :pagination="{ clickable: true }" :navigation="true" class="mySwiper">
-              <swiper-slide v-for="myList in getMyListMovies" :key="myList.id">
-                <button @click="redirectMovieDetails(myList.id)" class="focus:outline-none relative">
-                  <img class="rounded-xl w-full" :src="'https://image.tmdb.org/t/p/w200/' + myList.poster_path" />
-                  <div class="absolute inset-0 bg-black opacity-0 hover:opacity-80 transition-opacity rounded-xl"></div>
-                </button>
-              </swiper-slide>
-            </swiper>
+            <div v-if="getMyListMovies.length < 0">
+              <p class="text-gray-300 text-center"> Você ainda não adicionou nada a sua
+                lista de favoritos </p>
+            </div>
+            <div v-else>
+              <swiper :slidesPerView="getMyListMovies.length < 4 ? getMyListMovies.length : 4" :spaceBetween="4"
+                :freeMode="true" :pagination="{ clickable: true }" :navigation="true" class="mySwiper">
+                <swiper-slide v-for="myList in getMyListMovies" :key="myList.id">
+                  <div>{{ console.log(getMyListMovies) }}</div>
+                  <button @click="redirectMovieDetails(myList.id)" class="focus:outline-none relative">
+                    <img class="rounded-xl w-full" :src="'https://image.tmdb.org/t/p/w200/' + myList.poster_path" />
+                    <div class="absolute inset-0 bg-black opacity-0 hover:opacity-80 transition-opacity rounded-xl">
+                    </div>
+                  </button>
+                </swiper-slide>
+              </swiper>
+            </div>
           </div>
         </div>
       </div>
