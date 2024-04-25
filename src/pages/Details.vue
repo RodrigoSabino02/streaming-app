@@ -4,7 +4,7 @@
 <script setup>
 import { useMyList } from '../store/myList.js'
 import { defineProps, ref, watch } from 'vue'
-import { Heart, Play } from 'lucide-vue-next';
+import { Heart, Play, Star } from 'lucide-vue-next';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia'
 import axios from 'axios';
@@ -72,7 +72,10 @@ async function fetchMovie(id) {
                 <h1 class="w-full font-bold pt-8 md:pt-60 text-4xl">{{ post.title }}</h1>
                 <div class="flex flex-wrap gap-4 text-slate-400 mt-2">
                     <span>{{ movieYear[0] }}</span>
-                    <span>{{ Math.round(post.vote_average) }}/10</span>
+                    <span class="flex items-center gap-1">
+                        {{ Math.round(post.vote_average) }}
+                        <Star size="16" color="#FFD700" />
+                    </span>
                     <span>|</span>
                     <span>{{ post.runtime }} min</span>
                 </div>
