@@ -7,6 +7,8 @@ import { defineProps, ref, watch } from 'vue'
 import { Heart, Play, Star } from 'lucide-vue-next';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia'
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 import axios from 'axios';
 
 const loading = ref(false)
@@ -34,10 +36,9 @@ const redirect = (id) => {
 }
 
 const handleAddMyList = (id) => {
-
-    storeMyList.removeMovieMyList(id)
-
     storeMyList.addMovieMyList(id)
+    notify()
+
 }
 
 
@@ -61,7 +62,18 @@ async function fetchMovie(id) {
     }
 }
 
+const notify = () => {
+    toast("Adicionado a sua lista com sucesso", {
+        theme: "dark",
+        type: "success",
+        position: "bottom-center",
+        dangerouslyHTMLString: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+    })
 
+
+};
 </script>
 
 <template>
