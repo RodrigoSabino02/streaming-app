@@ -15,13 +15,12 @@ const router = useRouter();
 
 const redirect = (id) => {
     router.push({ name: 'player', params: { id: id } });
-    console.log(id);
 }
 
 const loading = ref(false)
 const post = ref(null)
 const error = ref(null)
-const movieYear = ref()
+const serieYear = ref()
 
 watch(() => props.id, fetchMovie, { immediate: true })
 
@@ -31,9 +30,9 @@ async function fetchMovie(id) {
 
     try {
         const apiKey = '4fed3f5d3a4f4c308c5a51f02e7113f6'
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`);
+        const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=pt-BR`);
         post.value = response.data;
-        movieYear.value = response.data.release_date.split("-")
+        serieYear.value = response.data.first_air_date.split("-")
 
     } catch (err) {
         error.value = err.toString()
@@ -50,17 +49,16 @@ async function fetchMovie(id) {
     <div v-else>
         <div class="flex items-start justify-center bg-slate-900 text-slate-200">
             <div class=" gap-3 flex flex-col justify-between items-start ml-10 ">
-                <h1 class="w-full font-bold pt-60 text-4xl">{{ post.title }}</h1>
+                <h1 class="w-full font-bold pt-60 text-4xl">{{ post.name }}</h1>
                 <div class="flex gap-4 text-slate-400 mt-2">
-                    <span>{{ movieYear[0] }}</span>
+                    <span>{{ serieYear[0] }}</span>
                     <span>{{ Math.round(post.vote_average) }}/10</span>
                     <span>|</span>
-                    <span>{{ post.runtime }} min</span>
+                    <span>{{ post.number_of_seasons }} temporadas</span>
                 </div>
                 <p class="w-1/2 mt-2">{{ post.overview }}</p>
                 <div class="flex gap-4 font-bold mt-6">
-                    <button @click="redirect(post.id)"
-                        class="flex items-center justify-center bg-red-600 p-3 rounded-2xl gap-1">
+                    <button @click="redirect" class="flex items-center justify-center bg-red-600 p-3 rounded-2xl gap-1">
                         <Play /> Trailer
                     </button>
                     <button @click="handleAddMyList"

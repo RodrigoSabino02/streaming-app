@@ -25,14 +25,21 @@ const router = createRouter({
         component: () => import('../pages/MyList.vue')
       },
       {
-        path: '/details/:id',
-        name: 'details',
+        path: '/movie/:id',
+        name: 'movie',
         props: true,
         component: () => import('../pages/Details.vue'),
       },
       {
-        path: '/player',
+        path: '/serie/:id',
+        name: 'serie',
+        props: true,
+        component: () => import('../pages/SeriesDetails.vue'),
+      },
+      {
+        path: '/player/:id',
         name: 'player',
+        props: true,
         component: () => import('../pages/Player.vue')
       },
   ]

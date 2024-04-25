@@ -18,9 +18,12 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const redirect = (id) => {
-  router.push({ name: 'details', params: { id: id } });
-  console.log(id)
+const redirectMovieDetails = (id) => {
+  router.push({ name: 'movie', params: { id: id } });
+}
+
+const redirectSerieDetails = (id) => {
+  router.push({ name: 'serie', params: { id: id } });
 }
 
 
@@ -39,7 +42,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <div class="bg-gray-900">
     <!-- my list -->
     <div>
       <div v-if="isLoading">Carregando...</div>
@@ -51,7 +54,6 @@ onMounted(async () => {
               clickable: true,
             }" :modules="modules" class="mySwiper">
               <swiper-slide v-for="movie in moviesList" :key="movie.id">
-                <pre>{{ movie.id }}</pre>
                 <button @click="redirect(movie.id)" class="">
                   <img class="rounded-xl" :src="'https://image.tmdb.org/t/p/w200/' + movie.poster_path" />
                 </button>
@@ -72,7 +74,7 @@ onMounted(async () => {
               clickable: true,
             }" :modules="modules" class="mySwiper">
               <swiper-slide v-for="movie in moviesList" :key="movie.id">
-                <button class="">
+                <button @click="redirectMovieDetails(movie.id)" class="">
                   <img class="rounded-xl" :src="'https://image.tmdb.org/t/p/w200/' + movie.poster_path" />
                 </button>
               </swiper-slide>
@@ -91,9 +93,9 @@ onMounted(async () => {
             <swiper :slidesPerView="9" :spaceBetween="30" :freeMode="true" :pagination="{
               clickable: true,
             }" :modules="modules" class="mySwiper">
-              <swiper-slide v-for="series in seriesList" :key="series.id">
-                <button class="">
-                  <img class="rounded-xl" :src="'https://image.tmdb.org/t/p/w200/' + series.poster_path" />
+              <swiper-slide v-for="serie in seriesList" :key="serie.id">
+                <button @click="redirectSerieDetails(serie.id)" class="">
+                  <img class="rounded-xl" :src="'https://image.tmdb.org/t/p/w200/' + serie.poster_path" />
                 </button>
               </swiper-slide>
             </swiper>
