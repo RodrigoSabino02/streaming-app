@@ -10,6 +10,7 @@ import { onMounted } from 'vue'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
+
 import 'swiper/css';
 
 import 'swiper/css/free-mode';
@@ -54,7 +55,7 @@ onMounted(async () => {
           <div class="container mx-auto px-4">
             <h2 class="text-3xl font-semibold text-white mb-6">Meus Favoritos</h2>
             <swiper :slidesPerView="getMyListMovies.length < 4 ? getMyListMovies.length : 4" :spaceBetween="4"
-              :freeMode="true" :pagination="{ clickable: true }" class="mySwiper">
+              :freeMode="true" :pagination="{ clickable: true }" :navigation="true" class="mySwiper">
               <swiper-slide v-for="myList in getMyListMovies" :key="myList.id">
                 <button @click="redirectMovieDetails(myList.id)" class="focus:outline-none relative">
                   <img class="rounded-xl w-full" :src="'https://image.tmdb.org/t/p/w200/' + myList.poster_path" />
@@ -74,7 +75,7 @@ onMounted(async () => {
           <div class="container mx-auto px-4">
             <h2 class="text-3xl font-semibold text-white mb-6">Filmes em destaque</h2>
             <swiper :slidesPerView="moviesList.length < 4 ? moviesList.length : 4" :spaceBetween="4" :freeMode="true"
-              :pagination="{ clickable: true }" class="mySwiper">
+              :pagination="{ clickable: true }" :navigation="true" :loop="true" class="mySwiper">
               <swiper-slide v-for="movie in moviesList" :key="movie.id">
                 <button @click="redirectMovieDetails(movie.id)" class="focus:outline-none relative">
                   <img class="rounded-xl w-full" :src="'https://image.tmdb.org/t/p/w200/' + movie.poster_path" />
@@ -94,7 +95,7 @@ onMounted(async () => {
           <div class="container mx-auto px-4">
             <h2 class="text-3xl font-semibold text-white mb-6">Series em destaque</h2>
             <swiper :slidesPerView="seriesList.length < 4 ? seriesList.length : 4" :spaceBetween="4" :freeMode="true"
-              :pagination="{ clickable: true }" class="mySwiper">
+              :pagination="{ clickable: true }" :loop="true" class="mySwiper">
               <swiper-slide v-for="serie in seriesList" :key="serie.id">
                 <button @click="redirectSerieDetails(serie.id)" class="focus:outline-none relative">
                   <img class="rounded-xl w-full" :src="'https://image.tmdb.org/t/p/w200/' + serie.poster_path" />
