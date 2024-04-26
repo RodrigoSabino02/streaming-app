@@ -5,7 +5,7 @@
 import { useMovies } from '../store/movies.js'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
-import { MoreHorizontal, ChevronsLeft, ChevronLeft, ChevronsRight, ChevronRight } from 'lucide-vue-next';
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { useRouter } from 'vue-router';
 
 
@@ -17,9 +17,7 @@ const {
   pages,
   results,
   isLoading,
-  getMovies,
-  nextPage,
-  prevPage, } = storeToRefs(storeMovies);
+} = storeToRefs(storeMovies);
 
 const router = useRouter();
 
@@ -50,7 +48,7 @@ onMounted(async () => {
       <div v-else>
         <div class="bg-gray-900 py-12">
           <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-semibold text-white mb-6">filmes</h2>
+            <h2 class="w-full text-center text-3xl font-semibold text-white mb-6">filmes</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               <button @click="redirectMovieDetails(movie.id)" class="mx-8 my-5 relative" v-for="movie in moviesList"
                 :key="movie.id">

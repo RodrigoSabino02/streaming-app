@@ -33,7 +33,7 @@ const storeSeries = useSeries()
 const storeMyList = useMyList()
 
 const { moviesList, isLoading } = storeToRefs(storeMovies);
-const { getMyListMovies, getMyListSeries, isLoadingMyList } = storeToRefs(storeMyList);
+const { getMyListMovies, getMyListSeries, isLoadingMyList, getMyListMoviesId } = storeToRefs(storeMyList);
 const { seriesList, isLoadingSeries } = storeToRefs(storeSeries);
 
 onMounted(async () => {
@@ -55,7 +55,7 @@ onMounted(async () => {
         <div class="bg-gray-900 py-8">
           <div class="container mx-auto px-4">
             <h2 class="text-3xl font-semibold text-white mb-6">Meus Favoritos</h2>
-            <div v-if="getMyListMovies.length < 0">
+            <div v-if="getMyListMoviesId.length < 1">
               <p class="text-gray-300 text-center"> Você ainda não adicionou nada a sua
                 lista de favoritos </p>
             </div>
@@ -92,7 +92,7 @@ onMounted(async () => {
           <div class="container mx-auto px-4">
             <h2 class="text-3xl font-semibold text-white mb-6">Filmes em destaque</h2>
             <swiper :slidesPerView="moviesList.length < 4 ? moviesList.length : 4" :spaceBetween="4" :freeMode="true"
-              :pagination="{ clickable: true }" :navigation="true" class="mySwiper">
+              :pagination="{ clickable: true }" :navigation="true" loop="true" class="mySwiper">
               <swiper-slide v-for="movie in moviesList" :key="movie.id">
                 <button @click="redirectMovieDetails(movie.id)" class="focus:outline-none relative">
                   <img class="rounded-xl w-full" :src="'https://image.tmdb.org/t/p/w200/' + movie.poster_path" />

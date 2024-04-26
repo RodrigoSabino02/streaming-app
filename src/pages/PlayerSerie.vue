@@ -4,7 +4,6 @@ import { ref, onMounted } from 'vue';
 import { usePlayer } from '../store/player.js';
 import { storeToRefs } from 'pinia'
 
-// Definir uma referência para o player do YouTube
 const props = defineProps({
     id: Number
 });
@@ -15,7 +14,6 @@ const storePlayer = usePlayer();
 
 const { youtubeId } = storeToRefs(storePlayer);
 
-// Método para inicializar o player quando a API estiver pronta
 const initializePlayer = (id) => {
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
@@ -26,7 +24,7 @@ const initializePlayer = (id) => {
         player.value = new window.YT.Player(document.getElementById('player'), {
             height: '847',
             width: '100%',
-            videoId: id, // Substitua 'VIDEO_ID_HERE' pelo ID do vídeo do YouTube que você deseja reproduzir
+            videoId: id,
             events: {
                 'onReady': onPlayerReady,
             },
@@ -34,14 +32,12 @@ const initializePlayer = (id) => {
     };
 };
 
-// Método para ser executado quando o player estiver pronto
 const onPlayerReady = (event) => {
     console.log('Player ready');
 };
 
 
 
-// Carregar a API do YouTube ao montar o componente
 onMounted(async () => {
     await storePlayer.getTrailerSerie(props.id);
     initializePlayer(youtubeId);

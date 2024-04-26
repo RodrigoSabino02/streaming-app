@@ -6,7 +6,7 @@ import { useSeries } from '../store/series.js'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router';
-import { MoreHorizontal, ChevronsLeft, ChevronLeft, ChevronsRight, ChevronRight } from 'lucide-vue-next';
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
 
 const storeSeries = useSeries()
@@ -15,11 +15,8 @@ const { seriesList,
   page,
   pages,
   results,
-  seriesLength,
   isLoadingSeries,
-  getSeries,
-  nextPage,
-  prevPage } = storeToRefs(storeSeries);
+} = storeToRefs(storeSeries);
 
 const router = useRouter();
 
@@ -48,7 +45,7 @@ onMounted(async () => {
       <div v-else>
         <div class="bg-gray-900 py-12">
           <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-semibold text-white mb-6">Series</h2>
+            <h2 class="w-full text-center text-3xl font-semibold text-white mb-6">Series</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               <button @click="redirectSerieDetails(serie.id)" class="mx-8 my-5" v-for="serie in seriesList"
                 :key="serie.id">

@@ -30,7 +30,7 @@ import {defineStore} from 'pinia'
     async function fetchMyListSeries() {
         isLoadingMyList.value = true
         try {
-            myListMoviesId.value.map(async id => {
+            getMyListMoviesId.value.map(async id => {
                 const apiKey = '4fed3f5d3a4f4c308c5a51f02e7113f6'
                 const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=pt-BR`);
                 myListSeries.value = response.data;
@@ -44,6 +44,9 @@ import {defineStore} from 'pinia'
     }
 
     function addSerieMyList(id) {
+        if (id === myListMoviesId.value.includes(id)) {
+            return removeMovieMyList(id)
+        }
         myListSeriesId.value.push(id);
     }
 
@@ -62,6 +65,7 @@ import {defineStore} from 'pinia'
 
     const getMyListMovies = computed(() => myListMovies.value);
     const getMyListSeries = computed(() => myListSeries.value)
+    const getMyListMoviesId = computed(() => myListMoviesId.value)
 
 
     return {
@@ -75,6 +79,7 @@ import {defineStore} from 'pinia'
         getMyListMovies,
         getMyListSeries,
         fetchMyListMovies,
-        fetchMyListSeries
+        fetchMyListSeries,
+        getMyListMoviesId
     }
  })

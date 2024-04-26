@@ -1,16 +1,5 @@
 eslint-disable vue/multi-word-component-names
-
-<template>
-    <div>
-        ola
-    </div>
-</template>
 <script setup>
-
-</script>
-
-
-<!-- <script setup>
 import { useMyList } from '../store/myList.js'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
@@ -22,7 +11,7 @@ const storeMyList = useMyList()
 const {
     isLoadingMyList,
     getMyListMovies,
-    fetchMyList } = storeToRefs(storeMyList);
+} = storeToRefs(storeMyList);
 
 
 
@@ -40,31 +29,22 @@ onMounted(async () => {
             <div v-else>
                 <div class="bg-gray-900 py-12">
                     <div class="container mx-auto px-4">
-                        <h2 class="text-3xl font-semibold text-white mb-6">Meus Favoritos</h2>
+                        <h2 class="w-full text-center text-3xl font-semibold text-white mb-6">Meus Favoritos</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                            <button class="mx-8 my-5" v-for="myList in getMyListMovies" :key="myList">
+                            <button @click="redirectMovieDetails(myMovieList.id)" class="mx-8 my-5 relative"
+                                v-for="myMovieList in getMyListMovies" :key="myMovieList.id">
                                 <img class="rounded-xl w-full sm:h-72"
-                                    :src="'https://image.tmdb.org/t/p/w500/' + myList.poster_path" />
+                                    :src="'https://image.tmdb.org/t/p/w500/' + myMovieList.poster_path" />
+                                <div
+                                    class="absolute inset-0 bg-black opacity-0 hover:opacity-80 transition-opacity rounded-xl">
+                                </div>
                             </button>
+
                         </div>
                     </div>
-                    <div class="flex items-center justify-between mx-10 text-sm text-zinc-300">
-                        <div>
-                            mostrando {{ getMyListMovies.length }} de {{ results }} items
-                        </div>
-                        <div class="flex gap-2 items-center">
-                            <span>pagina {{ page }} de {{ pages }}</span>
-                            <button class="border border-white/10 rounded-md p-1.5 bg-black/20"
-                                @click="goToPreviousPage">
-                                <ChevronLeft class="size-4" />
-                            </button>
-                            <button class="border border-white/10 rounded-md p-1.5 bg-black/20" @click="goToNextPage">
-                                <ChevronRight class="size-4" />
-                            </button>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-</template> -->
+</template>

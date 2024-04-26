@@ -6,10 +6,10 @@ import { useMyList } from '../store/myList.js'
 import { defineProps, ref, watch } from 'vue'
 import { Heart, Play, Star } from 'lucide-vue-next';
 import { useRouter } from 'vue-router';
-import { storeToRefs } from 'pinia'
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import axios from 'axios';
+import { storeToRefs } from 'pinia';
 
 const loading = ref(false)
 const post = ref(null)
@@ -22,6 +22,8 @@ const props = defineProps({
 
 const router = useRouter();
 const storeMyList = useMyList();
+
+const { getMyListMoviesId } = storeToRefs(storeMyList)
 
 const redirect = (id) => {
     router.push({ name: 'playerMovie', params: { id: id } });
@@ -71,8 +73,8 @@ const notify = () => {
     <div class="bg-gray-900" v-if="loading">Carregando...</div>
     <div v-else>
         <div class="flex flex-col-reverse md:flex-row items-center justify-center bg-slate-900 text-slate-200 gap-2">
-            <div class="gap-3 flex flex-col justify-between items-start mx-6 md:mx-10">
-                <h1 class="w-full font-bold pt-8 md:pt-60 text-4xl">{{ post.title }}</h1>
+            <div class="gap-2 flex flex-col justify-between items-start mx-6 md:mx-10">
+                <h1 class="w-full font-bold text-4xl">{{ post.title }}</h1>
                 <div class="flex flex-wrap gap-4 text-slate-400 mt-2">
                     <span>{{ movieYear[0] }}</span>
                     <span class="flex items-center gap-1">
@@ -94,8 +96,8 @@ const notify = () => {
                     </button>
                 </div>
             </div>
-            <div class="w-full md:w-screen h-screen overflow-hidden">
-                <img class="w-full h-full object-cover" :src="'https://image.tmdb.org/t/p/w500/' + post.poster_path"
+            <div class="w-full md:w-screen h-screen overflow-hidden flex justify-end">
+                <img class="w-[750px] h-[93%] object-cover" :src="'https://image.tmdb.org/t/p/w500/' + post.poster_path"
                     alt="">
             </div>
         </div>
