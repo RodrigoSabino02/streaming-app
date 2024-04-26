@@ -6,7 +6,7 @@
   Made with :coffee: by <a href="https://www.linkedin.com/in/rodrigo-sabino/" target="_blank"> Rodrigo Sabino </a> 
 </p>
 
-__<p align="center">Streaming App e uma aplicaçao aonde voce pode assistir os trailers dos seus filmes favoritos</p>__
+__<p align="center">Streaming App e uma aplicação aonde voce pode assistir os trailers dos seus filmes favoritos</p>__
 
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/RodrigoSabino02/streaming-app"> 
