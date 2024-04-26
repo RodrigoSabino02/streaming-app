@@ -7,9 +7,11 @@ import {defineStore} from 'pinia'
  export const useMyList = defineStore('myList', () => {
     const isLoadingMyList = ref(false);
     const myListMoviesId = ref([]);
-    const myListMovies = ref([])
+    const myListMovies = ref([]);
+    const myListSeriesId = ref([]);
+    const myListSeries = ref([])
 
-    async function fetchMyList() {
+    async function fetchMyListMovies() {
         isLoadingMyList.value = true
         try {
             myListMoviesId.value.map(async id => {
@@ -25,25 +27,54 @@ import {defineStore} from 'pinia'
         }
     }
 
+    async function fetchMyListSeries() {
+        isLoadingMyList.value = true
+        try {
+            myListMoviesId.value.map(async id => {
+                const apiKey = '4fed3f5d3a4f4c308c5a51f02e7113f6'
+                const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=pt-BR`);
+                myListSeries.value = response.data;
+            })
+
+        } catch (error) {
+            console.error('Erro ao buscar filmes:', error);
+        } finally {
+            isLoadingMyList.value = false
+        }
+    }
+
+    function addSerieMyList(id) {
+        myListSeriesId.value.push(id);
+    }
+
+    function removeSerieMyList(id) {
+        myListSeriesId.value = myListSeriesId.value.filter(item => item !== id);
+    }
 
     function addMovieMyList(id) {
         myListMoviesId.value.push(id);
     }
 
-    const removeMovieMyList = (id) => {
+    function removeMovieMyList(id) {
         myListMoviesId.value = myListMoviesId.value.filter(item => item !== id);
     }
 
 
-    const getMyListMovies = computed(() => myListMovies.value)
+    const getMyListMovies = computed(() => myListMovies.value);
+    const getMyListSeries = computed(() => myListSeries.value)
 
 
     return {
         isLoadingMyList,
         addMovieMyList,
+        addSerieMyList,
         removeMovieMyList,
+        removeSerieMyList,
         myListMoviesId,
+        myListSeriesId,
         getMyListMovies,
-        fetchMyList
+        getMyListSeries,
+        fetchMyListMovies,
+        fetchMyListSeries
     }
  })

@@ -2,9 +2,13 @@
 <!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
+import { useMyList } from '../store/myList.js'
 import { defineProps, ref, watch } from 'vue'
 import { Heart, Play } from 'lucide-vue-next';
+import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 import axios from 'axios';
 
 const props = defineProps({
@@ -12,9 +16,13 @@ const props = defineProps({
 });
 
 const router = useRouter();
+const storeMyList = useMyList();
 
-const redirect = (id) => {
-    router.push({ name: 'player', params: { id: id } });
+const { myListSeriesId } = storeToRefs(storeMyList)
+
+const redirect = () => {
+    console.log(myListSeriesId)
+    // router.push({ name: 'playerSerie', params: { id: id } });
 }
 
 const loading = ref(false)
@@ -22,9 +30,16 @@ const post = ref(null)
 const error = ref(null)
 const serieYear = ref()
 
-watch(() => props.id, fetchMovie, { immediate: true })
 
-async function fetchMovie(id) {
+
+const handleAddMyList = (id) => {
+    storeMyList.addSerieMyList(id)
+    notify()
+}
+
+watch(() => props.id, fetchSerie, { immediate: true })
+
+async function fetchSerie(id) {
     error.value = post.value = null
     loading.value = true
 
@@ -40,6 +55,17 @@ async function fetchMovie(id) {
         loading.value = false
     }
 }
+
+const notify = () => {
+    toast("Adicionado a sua lista com sucesso", {
+        theme: "dark",
+        type: "success",
+        position: "bottom-center",
+        dangerouslyHTMLString: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+    })
+};
 
 
 </script>
@@ -61,7 +87,7 @@ async function fetchMovie(id) {
                     <button @click="redirect" class="flex items-center justify-center bg-red-600 p-3 rounded-2xl gap-1">
                         <Play /> Trailer
                     </button>
-                    <button @click="handleAddMyList"
+                    <button @click="handleAddMyList(id)"
                         class="flex items-center justify-center bg-green-600 p-3 rounded-2xl gap-1">
                         <Heart /> Salvar
                     </button>

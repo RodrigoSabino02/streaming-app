@@ -41,6 +41,9 @@ import {defineStore} from 'pinia'
             getSeries();
         }
     };
+    const resetPage = () => {
+            pageIndex.value = 1
+    };
 
     const page = computed(() => pageIndex.value);
     const pages = computed(() => totalPages.value);
@@ -56,6 +59,7 @@ import {defineStore} from 'pinia'
         getSeries,
         nextPage,
         prevPage,
+        resetPage
     }
 
  })

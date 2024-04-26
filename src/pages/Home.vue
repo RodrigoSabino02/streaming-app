@@ -33,11 +33,12 @@ const storeSeries = useSeries()
 const storeMyList = useMyList()
 
 const { moviesList, isLoading } = storeToRefs(storeMovies);
-const { getMyListMovies, isLoadingMyList } = storeToRefs(storeMyList);
+const { getMyListMovies, getMyListSeries, isLoadingMyList } = storeToRefs(storeMyList);
 const { seriesList, isLoadingSeries } = storeToRefs(storeSeries);
 
 onMounted(async () => {
-  await storeMyList.fetchMyList()
+  await storeMyList.fetchMyListMovies()
+  await storeMyList.fetchMyListSeries()
   await storeMovies.getMovies();
   await storeSeries.getSeries();
 
@@ -61,10 +62,18 @@ onMounted(async () => {
             <div v-else>
               <swiper :slidesPerView="getMyListMovies.length < 4 ? getMyListMovies.length : 4" :spaceBetween="4"
                 :freeMode="true" :pagination="{ clickable: true }" :navigation="true" class="mySwiper">
-                <swiper-slide v-for="myList in getMyListMovies" :key="myList.id">
-                  <div>{{ console.log(getMyListMovies) }}</div>
-                  <button @click="redirectMovieDetails(myList.id)" class="focus:outline-none relative">
-                    <img class="rounded-xl w-full" :src="'https://image.tmdb.org/t/p/w200/' + myList.poster_path" />
+                <swiper-slide v-for="myListMovie in getMyListMovies" :key="myListMovie.id">
+                  <button @click="redirectMovieDetails(myListMovie.id)" class="focus:outline-none relative">
+                    <img class="rounded-xl w-full"
+                      :src="'https://image.tmdb.org/t/p/w200/' + myListMovie.poster_path" />
+                    <div class="absolute inset-0 bg-black opacity-0 hover:opacity-80 transition-opacity rounded-xl">
+                    </div>
+                  </button>
+                </swiper-slide>
+                <swiper-slide v-for="myListSeries in getMyListSeries" :key="myListSeries.id">
+                  <button @click="redirectSerieDetails(myListSeries.id)" class="focus:outline-none relative">
+                    <img class="rounded-xl w-full"
+                      :src="'https://image.tmdb.org/t/p/w200/' + myListSeries.poster_path" />
                     <div class="absolute inset-0 bg-black opacity-0 hover:opacity-80 transition-opacity rounded-xl">
                     </div>
                   </button>
@@ -83,7 +92,7 @@ onMounted(async () => {
           <div class="container mx-auto px-4">
             <h2 class="text-3xl font-semibold text-white mb-6">Filmes em destaque</h2>
             <swiper :slidesPerView="moviesList.length < 4 ? moviesList.length : 4" :spaceBetween="4" :freeMode="true"
-              :pagination="{ clickable: true }" :navigation="true" :loop="true" class="mySwiper">
+              :pagination="{ clickable: true }" :navigation="true" class="mySwiper">
               <swiper-slide v-for="movie in moviesList" :key="movie.id">
                 <button @click="redirectMovieDetails(movie.id)" class="focus:outline-none relative">
                   <img class="rounded-xl w-full" :src="'https://image.tmdb.org/t/p/w200/' + movie.poster_path" />
@@ -97,7 +106,7 @@ onMounted(async () => {
     </div>
     <!-- series -->
     <div>
-      <div v-if="isLoading">Carregando...</div>
+      <div v-if="isLoadingSeries">Carregando...</div>
       <div v-else>
         <div class="bg-gray-900 py-8">
           <div class="container mx-auto px-4">

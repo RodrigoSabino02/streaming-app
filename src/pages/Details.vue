@@ -23,15 +23,8 @@ const props = defineProps({
 const router = useRouter();
 const storeMyList = useMyList();
 
-const { isLoading,
-    addMovieMyList,
-    removeMovieMyList,
-    myListMoviesId,
-    getMyListMovies,
-    fetchMyList } = storeToRefs(storeMyList)
-
 const redirect = (id) => {
-    router.push({ name: 'player', params: { id: id } });
+    router.push({ name: 'playerMovie', params: { id: id } });
 
 }
 
@@ -71,8 +64,6 @@ const notify = () => {
         closeOnClick: false,
         pauseOnHover: false,
     })
-
-
 };
 </script>
 
@@ -93,7 +84,7 @@ const notify = () => {
                 </div>
                 <p class="w-full mt-2 md:w-1/2">{{ post.overview }}</p>
                 <div class="flex flex-wrap gap-4 font-bold mt-6 mb-4">
-                    <button @click="console.log(myListMoviesId)"
+                    <button @click="redirect(post.id)"
                         class="flex items-center justify-center bg-red-600 p-3 rounded-2xl gap-1">
                         <Play /> Trailer
                     </button>

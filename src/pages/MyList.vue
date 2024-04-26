@@ -1,5 +1,15 @@
 eslint-disable vue/multi-word-component-names
 
+<template>
+    <div>
+        ola
+    </div>
+</template>
+<script setup>
+
+</script>
+
+
 <!-- <script setup>
 import { useMyList } from '../store/myList.js'
 import { storeToRefs } from 'pinia'
@@ -18,7 +28,7 @@ const {
 
 
 onMounted(async () => {
-    await storeMovies.fetchMyList();
+    await storeMovies.fetchMyListMovies();
 })
 
 </script>

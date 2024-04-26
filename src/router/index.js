@@ -37,10 +37,16 @@ const router = createRouter({
         component: () => import('../pages/SeriesDetails.vue'),
       },
       {
-        path: '/player/:id',
-        name: 'player',
+        path: '/movie/player/:id',
+        name: 'playerMovie',
         props: true,
-        component: () => import('../pages/Player.vue')
+        component: () => import('../pages/PlayerMovie.vue')
+      },
+      {
+        path: '/serie/player/:id',
+        name: 'playerSerie',
+        props: true,
+        component: () => import('../pages/PlayerSerie.vue')
       },
   ]
 })
